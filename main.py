@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
 def on_modified(event):
     print(f"new score data has been detected in your osu directory: {event.src_path}, refreshing")
-    urllib.request.urlopen(f"http://gdcheerios.com/refresh/{info.osu_username}")
+    urllib.request.urlopen(f"http://gdcheerios.com/refresh/{info.osu_id}")
 
 my_event_handler.on_modified = on_modified
 
