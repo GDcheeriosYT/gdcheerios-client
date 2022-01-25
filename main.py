@@ -1,52 +1,48 @@
-import subprocess
-import sys
-
-def install(package):
-    print(f"installing requirement {package}")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-import info
-
-try:
-    import urllib.request
-except ModuleNotFoundError:
-    install("urllib")
-    import urllib.request
-    
-try:
-    from watchdog.observers import Observer
-    from watchdog.events import PatternMatchingEventHandler
-except ModuleNotFoundError:
-    install("watchdog")
-    from watchdog.observers import Observer
-    from watchdog.events import PatternMatchingEventHandler
-    
+from importlib.metadata import metadata
 import time
+import json
+from flask import jsonify
+import requests
+import subprocess
+import os
+import atexit
 
-#Made with tutortial from https://thepythoncorner.com/posts/2019-01-13-how-to-create-a-watchdog-in-python-to-look-for-filesystem-changes/
+def exit_handler():
+    requests.post(f"http://gdcheerios.com/api/live/del/{id}")
 
-if __name__ == "__main__":
-    patterns = ["*"]
-    ignore_patterns = None
-    ignore_directories = False
-    case_sensitive = True
-    my_event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+atexit.register(exit_handler)
 
-def on_modified(event):
-    print(f"new score data has been detected in your osu directory: {event.src_path}, refreshing")
-    urllib.request.urlopen(f"http://gdcheerios.com/refresh/{info.osu_id}")
+with open("id.txt", "r") as f:
+  id = f.read()
 
-my_event_handler.on_modified = on_modified
+print("https://github.com/l3lackShark/gosumemory")
+print("I use this for data reading, so thanks to him")
 
-path = f"{info.osu_path}/data/r"
-go_recursively = True
-my_observer = Observer()
-my_observer.schedule(my_event_handler, path, recursive=go_recursively)
+os.startfile("gosumemory.exe")
 
-my_observer.start()
-try:
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    my_observer.stop()
-    my_observer.join()
+time.sleep(5)
+
+while True:
+  info = requests.get("http://127.0.0.1:24050/json").json()
+  if info['menu']['state'] != 2 and info['menu']['state'] != 7:
+    important_info = {}
+    important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
+    important_info["state"] = info['menu']['state']
+    important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+    requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+    time.sleep(1)
+  elif info['menu']['state'] == 7:
+    requests.get(f"http://gdcheerios.com/refresh/{id}")
+    important_info = {}
+    important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
+    important_info["state"] = info['menu']['state']
+    important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+    requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+    time.sleep(6)
+  else:
+    important_info = {}
+    important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
+    important_info["state"] = info['menu']['state']
+    important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+    requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+    time.sleep(0.35)
