@@ -29,6 +29,10 @@ while True:
     important_info["state"] = info['menu']['state']
     important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
     requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+    score.append(info['gameplay']['score'])
+    combo.append(info['gameplay']['combo']['current'])
+    accuracy.append(info['gameplay']['accuracy'])
+    important_info["lists"] = {"combo" : combo, "accuracy" : accuracy, "score" : score}
     completed = False
     time.sleep(delay)
   elif info['menu']['state'] == 7:
@@ -39,6 +43,10 @@ while True:
       important_info["state"] = info['menu']['state']
       important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
       requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+      score.append(info['gameplay']['score'])
+      combo.append(info['gameplay']['combo']['current'])
+      accuracy.append(info['gameplay']['accuracy'])
+      important_info["lists"] = {"combo" : combo, "accuracy" : accuracy, "score" : score}
       completed = True
     time.sleep(delay)
     
@@ -48,5 +56,9 @@ while True:
     important_info["state"] = info['menu']['state']
     important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
     requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+    score.append(info['gameplay']['score'])
+    combo.append(info['gameplay']['combo']['current'])
+    accuracy.append(info['gameplay']['accuracy'])
+    important_info["lists"] = {"combo" : combo, "accuracy" : accuracy, "score" : score}
     completed = False
     time.sleep(delay)
