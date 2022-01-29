@@ -10,9 +10,9 @@ atexit.register(exit_handler)
 
 delay = 1.9
 
-score = []
-combo = []
-accuracy = []
+score = [0]
+combo = [0]
+accuracy = [0]
 
 with open("id.txt", "r") as f:
   id = f.read()
