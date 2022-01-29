@@ -8,7 +8,7 @@ def exit_handler():
 
 atexit.register(exit_handler)
 
-delay = 1.9
+delay = 2
 
 score = [0]
 combo = [0]
