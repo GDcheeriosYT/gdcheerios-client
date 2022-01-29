@@ -1,10 +1,19 @@
 import time
-import requests
 import os
+import subprocess
 import atexit
+
+def install(package):
+    print(f"installing requirement {package}")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 def exit_handler():
     requests.post(f"http://gdcheerios.com/api/live/del/{id}")
+
+try:
+    import requests
+except:
+    install("requests")
 
 atexit.register(exit_handler)
 
