@@ -26,9 +26,9 @@ time.sleep(5)
 completed = False #boolean represents if map is completed or not
 
 while True:
-  print(len(score))
-  print(len(combo))
-  print(len(accuracy))
+  print(score[len(score)-1])
+  print(combo[len(combo)-1])
+  print(accuracy[len(accuracy)-1])
   info = requests.get("http://127.0.0.1:24050/json").json()
   if info['menu']['state'] != 2 and info['menu']['state'] != 7:
     important_info = {}
