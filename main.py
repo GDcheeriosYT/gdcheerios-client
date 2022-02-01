@@ -17,6 +17,7 @@ except:
 
 atexit.register(exit_handler)
 
+delay = 0.5
 
 with open("id.txt", "r") as f:
   id = f.read()
