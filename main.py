@@ -29,7 +29,7 @@ time.sleep(5)
 completed = False #boolean represents if map is completed or not
 
 while True:
-  delay = float(requests.get("http://gdcheerios.com/api/get-delay"))
+  delay = float(requests.get("http://gdcheerios.com/api/get-delay").json())
   info = requests.get("http://127.0.0.1:24050/json").json()
   if info['menu']['state'] != 2 and info['menu']['state'] != 7:
     important_info = {}
