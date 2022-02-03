@@ -19,8 +19,8 @@ atexit.register(exit_handler)
 
 delay = 0.5
 
-with open("id.txt", "r") as f:
-  id = f.read()
+with open("id.txt", "r") as id_info:
+  id = id_info.read()
 
 print("https://github.com/l3lackShark/gosumemory")
 print("I use this for data reading, so thanks to him")
