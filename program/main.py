@@ -29,7 +29,7 @@ print("I use this for data reading, so thanks to him")
 time.sleep(5)
 completed = False #boolean represents if map is completed or not
 
-fail_iteration = 0
+fail_iteration = 0 #check if something is going wrong, if something is then it will get bigger for the amount of times the error has occurred
 
 while True:
   try:
