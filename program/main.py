@@ -73,6 +73,11 @@ while True:
     time.sleep(delay)
     
     if fail_iteration < 1:
+      print('''
+            something isn't right...
+            the problem is most likely:
+            1.osu! isn't open
+            2.gdcheerios.com is offline''')
       requests.post(f"http://gdcheerios.com/api/live/del/{id}")
       
     fail_iteration += 1
