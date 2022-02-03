@@ -4,7 +4,7 @@ import atexit
 import requests
 import psutil
     
-os.startfile("program/gosumemory.exe")
+os.startfile(os.path.normpath("program/gosumemory.exe"))
 def get_pid():
   for proc in psutil.process_iter():
     if proc.name() == "gosumemory.exe":
