@@ -1,6 +1,5 @@
 import time
 import os
-import subprocess
 import atexit
 
 def install(package):
