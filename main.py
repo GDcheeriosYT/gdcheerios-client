@@ -17,8 +17,6 @@ except:
 
 atexit.register(exit_handler)
 
-delay = 0.5
-
 with open("id.txt", "r") as id_info:
   id = id_info.read()
 
@@ -31,6 +29,7 @@ time.sleep(5)
 completed = False #boolean represents if map is completed or not
 
 while True:
+  delay = float(requests.get("http://gdcheerios.com/api/get-delay"))
   info = requests.get("http://127.0.0.1:24050/json").json()
   if info['menu']['state'] != 2 and info['menu']['state'] != 7:
     important_info = {}
