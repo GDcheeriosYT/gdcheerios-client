@@ -35,7 +35,7 @@ fail_iteration = 0 #check if something is going wrong, if something is then it w
 
 while True:
   try:
-    delay = float(requests.get(f"{url}]/api/get-delay").json())
+    delay = float(requests.get(f"{url}/api/get-delay").json())
   except:
     delay = 5
   try:
