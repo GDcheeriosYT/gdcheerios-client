@@ -3,6 +3,8 @@ import os
 import atexit
 import requests
 import psutil
+
+url = "http://gdcheerios.com"
     
 os.startfile(os.path.normpath("program/gosumemory.exe"))
 def get_pid():
@@ -15,7 +17,7 @@ def get_pid():
 watch = psutil.Process(get_pid())
 
 def exit_handler():
-    requests.post(f"http://gdcheerios.com/api/live/del/{id}")
+    requests.post(f"{url}/api/live/del/{id}")
     watch.kill()
 
 atexit.register(exit_handler)
@@ -33,7 +35,7 @@ fail_iteration = 0 #check if something is going wrong, if something is then it w
 
 while True:
   try:
-    delay = float(requests.get("http://gdcheerios.com/api/get-delay").json())
+    delay = float(requests.get(f"{url}]/api/get-delay").json())
   except:
     delay = 5
   try:
@@ -43,18 +45,18 @@ while True:
       important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
       important_info["state"] = info['menu']['state']
       important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-      requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+      requests.post(f"{url}/api/live/update/{id}", json=important_info)
       completed = False
       time.sleep(delay)
       
     elif info['menu']['state'] == 7:
       if completed == False:
-        requests.get(f"http://gdcheerios.com/refresh/{id}")
+        requests.get(f"{url}/refresh/{id}")
         important_info = {}
         important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
         important_info["state"] = info['menu']['state']
         important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-        requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+        requests.post(f"{url}/api/live/update/{id}", json=important_info)
         completed = True
       time.sleep(delay)
       
@@ -63,7 +65,7 @@ while True:
       important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
       important_info["state"] = info['menu']['state']
       important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-      requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
+      requests.post(f"{url}/api/live/update/{id}", json=important_info)
       completed = False
       time.sleep(delay)
     fail_iteration = 0
@@ -78,6 +80,6 @@ while True:
             the problem is most likely:
             1.osu! isn't open
             2.gdcheerios.com is offline''')
-      requests.post(f"http://gdcheerios.com/api/live/del/{id}")
+      requests.post(f"{url}/api/live/del/{id}")
       
     fail_iteration += 1
