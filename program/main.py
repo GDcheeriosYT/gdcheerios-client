@@ -42,7 +42,7 @@ while True:
       important_info = {}
       important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
       important_info["state"] = info['menu']['state']
-      important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+      important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "100s" : info['gameplay']['hits']['100'], "50s" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
       requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
       completed = False
       time.sleep(delay)
@@ -53,7 +53,7 @@ while True:
         important_info = {}
         important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
         important_info["state"] = info['menu']['state']
-        important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+        important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "100s" : info['gameplay']['hits']['100'], "50s" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
         requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
         completed = True
       time.sleep(delay)
@@ -62,7 +62,7 @@ while True:
       important_info = {}
       important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
       important_info["state"] = info['menu']['state']
-      important_info["gameplay"] = {"score" : info['gameplay']['score'],"accuracy" : info['gameplay']['accuracy'],"combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"]}
+      important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "100s" : info['gameplay']['hits']['100'], "50s" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
       requests.post(f"http://gdcheerios.com/api/live/update/{id}", json=important_info)
       completed = False
       time.sleep(delay)
