@@ -1,2 +1,14 @@
 
 __pycache__/info.cpython-39.pyc
+*.css
+*.js
+*.html
+*.png
+*.svg
+*.ttf
+program/static/LICENSE
+*.eot
+*.woff
+*.woff2
+*.md
+*.otf
