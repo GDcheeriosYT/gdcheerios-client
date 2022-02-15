@@ -1,0 +1,10 @@
+body{
+  background: rgb(79,0,87);
+  background: linear-gradient(0deg, rgba(79,0,87,1) 0%, rgba(228,116,187,1) 100%);
+}
+
+screen-area{
+  background-color: green;
+  border: 12px solid #FF82E0;
+  border-radius: 5px;
+}
