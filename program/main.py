@@ -7,6 +7,10 @@ import psutil
 url = "http://gdcheerios.com"
     
 os.startfile(os.path.normpath("program/gosumemory.exe"))
+'''
+https://github.com/l3lackShark/gosumemory
+link to github for info on how his program works
+'''
 def get_pid():
   for proc in psutil.process_iter():
     if proc.name() == "gosumemory.exe":
