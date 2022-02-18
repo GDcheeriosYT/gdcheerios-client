@@ -50,7 +50,10 @@ body{
 }
 
 .hrm{
-  display: flex;  
+  position: absolute;
+  top: -20vw;
+  display: flex;
+  z-index: 2;
 }
 
 .hrm img{
