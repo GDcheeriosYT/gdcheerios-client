@@ -7,8 +7,10 @@ import psutil
 url = "http://gdcheerios.com"
 with open("id.txt", "r") as id_info:
   id = id_info.read()
+watch = None
 
 def prepare():
+  global watch
   os.startfile(os.path.normpath("program/gosumemory.exe"))
   def get_pid():
     for proc in psutil.process_iter():
@@ -31,11 +33,9 @@ def credits():
   print("I use this for data reading, so thanks to him")
 
 def request_loop():
+  global watch
   time.sleep(5)
   completed = False #boolean represents if map is completed or not
-
-  fail_iteration = 0 #check if something is going wrong, if something is then it will get bigger for the amount of times the error has occurred
-
   while True:
     try:
       delay = float(requests.get(f"{url}/api/get-delay").json())
@@ -76,13 +76,11 @@ def request_loop():
     except:
       delay = 3
       time.sleep(delay)
-      
-      if fail_iteration < 1:
-        print('''
-              something isn't right...
-              the problem is most likely:
-              1.osu! isn't open
-              2.gdcheerios.com is offline''')
-        requests.post(f"{url}/api/live/del/{id}")
-        
-      fail_iteration += 1
+      print('''
+            something isn't right...
+            the problem is most likely:
+            1.osu! isn't open
+            2.gdcheerios.com is offline''')
+      requests.post(f"{url}/api/live/del/{id}")
+      watch.kill()
+      break
