@@ -37,10 +37,7 @@ def request_loop():
   time.sleep(5)
   completed = False #boolean represents if map is completed or not
   while True:
-    try:
-      delay = float(requests.get(f"{url}/api/get-delay").json())
-    except:
-      delay = 5
+      delay = 3
     try:
       info = requests.get("http://127.0.0.1:24050/json").json()
       if info['menu']['state'] != 2 and info['menu']['state'] != 7:
