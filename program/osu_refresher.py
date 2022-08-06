@@ -4,14 +4,20 @@ import atexit
 import requests
 import psutil
 
-url = "http://gdcheerios.com"
-with open("id.txt", "r") as id_info:
-  id = id_info.read()
+id = 0
 watch = None
+url = "127.0.0.1"
 
-def prepare():
+def prepare(user_id, web_url=url):
   global watch
-  os.startfile(os.path.normpath("program/gosumemory.exe"))
+  global id
+  global url
+  id = user_id
+  url = web_url
+  try:
+    os.startfile(os.path.normpath("program/gosumemory.exe"))
+  except:
+    os.startfile(os.path.normpath("gosumemory.exe"))
   def get_pid():
     for proc in psutil.process_iter():
       if proc.name() == "gosumemory.exe":
@@ -24,8 +30,12 @@ def prepare():
   def exit_handler():
       requests.post(f"{url}/api/live/del/{id}")
       watch.kill()
+      watch = None
 
   atexit.register(exit_handler)
+
+def get_watch():
+  return watch
 
 
 def credits():
@@ -37,7 +47,7 @@ def request_loop():
   time.sleep(5)
   completed = False #boolean represents if map is completed or not
   while True:
-      delay = 3
+    delay = 1
     try:
       info = requests.get("http://127.0.0.1:24050/json").json()
       if info['menu']['state'] != 2 and info['menu']['state'] != 7:
@@ -80,4 +90,5 @@ def request_loop():
             2.gdcheerios.com is offline''')
       requests.post(f"{url}/api/live/del/{id}")
       watch.kill()
+      watch = None
       break
