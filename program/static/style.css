@@ -19,3 +19,13 @@ input{
   left: 1vw;
   font-size: 5vh;
 }
+
+.games{
+  position: absolute;
+  right: 1vw;
+  font-size: 5vh;
+}
+
+.not-installed{
+    color: grey;
+}

@@ -34,6 +34,7 @@ def prepare(user_id, web_url=url):
   watch = psutil.Process(get_pid())
 
   def exit_handler():
+      global watch
       requests.post(f"{url}/api/live/del/{id}")
       watch.kill()
       watch = None

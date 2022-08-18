@@ -1,16 +1,19 @@
 #necessary imports
+import json
 import time
 import os
 import webbrowser
 import asyncio
-
 import requests
+import zipfile
+import re
 
 #files
 import osu_refresher
 
 #flask
 from flask import Flask, jsonify, redirect, render_template, request, make_response
+
 
 #start the tab
 localhost_url = "http://127.0.0.1:90"
@@ -31,8 +34,30 @@ url = "http://gdcheerios.com"
 user_data = {}
 
 #functions
+def download(url, game_name):
+  filename = url[url.rfind('/') + 1:]
+  with requests.get(url) as req:
+    with open(f"installs/{game_name}.zip", 'wb') as f:
+      for chunk in req.iter_content(chunk_size=8192):
+        if chunk:
+          f.write(chunk)
+
+  with zipfile.ZipFile(f"installs/{game_name}.zip", 'r') as zip_ref:
+    zip_ref.extractall("installs/")
+
+  os.remove(f"installs/{game_name}.zip")
+
+
 def hide_element(element):
   element.grid_remove()
+
+def has_game(game):
+  for file in os.listdir("installs"):
+    found = bool(re.search(game, file))
+    if found:
+      return True
+
+  return False
 
 #endpoints
 @app.route("/get-cached-data")
@@ -47,7 +72,7 @@ def receive_cached_data():
     url = request.cookies.get("url")
     user_data = requests.get(f"{url}/api/account/login/{request.cookies.get('username')}+{request.cookies.get('password')}").json()
     return resp
-  
+
 
 @app.route("/")
 def home():
@@ -55,6 +80,7 @@ def home():
     "index.html",
     userData = user_data,
     url = url,
+    has_game = has_game
   )
 
 @app.route("/login-page")
@@ -125,9 +151,22 @@ def start_osu_refresher():
     osu_refresher.credits()
     asyncio.run(osu_refresher.request_loop())
     return redirect(f"{localhost_url}/")
-  
 
-    
+@app.route("/install/<game>")
+def install(game):
+  if game == "Gentry's Quest":
+    req = requests.get("https://api.github.com/repos/gdcheeriosyt/gentrys-quest/releases/latest").json()
+    download(req["assets"][0]["browser_download_url"], "Gentry's Quest")
+
+  return redirect(f"{localhost_url}")
+
+@app.route("/uninstall/<game>")
+def uninstall(game):
+  os.remove(f"installs/{game}")
+
+  return redirect(f"{localhost_url}")
+
+
 if __name__ == "__main__":
   app.run(
     host='0.0.0.0',

@@ -29,6 +29,22 @@
           <li><a href="/start_osu_refresher">start live status client</a></li>
         </ul>
       </div>
+      <div class="games">
+        <h1>games</h1>
+        <ul>
+          {% if has_game("Gentry's Quest") == False %}
+            <li class="not-installed"><a href="/install/Gentry's Quest">Gentry's Quest</a> click to install</li>
+            <br>
+          {% else %}
+            <li class="not-installed"><a href="/play/Gentry's Quest">Gentry's Quest</a> click to play</li>
+              <ul>
+                <li><a href="uninstall/Gentry's Quest">uninstall</a></li>
+              </ul>
+            <br>
+          {% endif %}
+            <li class="not-installed"><a href="https://github.com/GDcheeriosYT/The-Backrooms" target="_blank">The Backrooms [WIP]</a> click to view info</li>
+        </ul>
+      </div>
     {% endif %}
   </body>
 </html>
