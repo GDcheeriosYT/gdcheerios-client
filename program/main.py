@@ -2,6 +2,7 @@
 import time
 import os
 import webbrowser
+import asyncio
 
 import requests
 
@@ -12,8 +13,10 @@ import osu_refresher
 from flask import Flask, jsonify, redirect, render_template, request, make_response
 
 #start the tab
+localhost_url = "http://127.0.0.1:90"
 webbrowser.get()
-webbrowser.open("http://127.0.0.1:80/get-cached-data", new=1, autoraise=True)
+webbrowser.open(f"{localhost_url}/get-cached-data", new=1, autoraise=True)
+
 
 #flask set up
 app = Flask(  # Create a flask app
@@ -38,9 +41,9 @@ def receive_cached_data():
   global user_data
   username = request.cookies.get('username')
   if username == None:
-    return redirect("http://127.0.0.1:80/")
+    return redirect(f"{localhost_url}/")
   else:
-    resp = redirect("http://127.0.0.1:80/")
+    resp = redirect(f"{localhost_url}/")
     url = request.cookies.get("url")
     user_data = requests.get(f"{url}/api/account/login/{request.cookies.get('username')}+{request.cookies.get('password')}").json()
     return resp
@@ -75,7 +78,7 @@ def login():
       ))
     return resp
   else:
-    resp = make_response(redirect("http://127.0.0.1:80/"))
+    resp = make_response(redirect(f"{localhost_url}/"))
     resp.set_cookie("username", username)
     resp.set_cookie("password", password)
     user_data = login_result
@@ -93,7 +96,7 @@ def submit_server():
   global url
   ip = request.form.get('ip')
   port = request.form.get('port')
-  resp = make_response(redirect("http://127.0.0.1:80/"))
+  resp = make_response(redirect(f"{localhost_url}/"))
   try:
     request_result = requests.get(f"{ip}:{port}")
     url = f"{ip}:{port}"
@@ -108,7 +111,7 @@ def submit_server():
 
 @app.route("/signout")
 def signout():
-  resp = make_response(redirect("http://127.0.0.1:80/"))
+  resp = make_response(redirect(f"{localhost_url}/"))
   resp.delete_cookie("username")
   resp.delete_cookie("password")
   return resp
@@ -116,17 +119,17 @@ def signout():
 @app.route("/start_osu_refresher")
 def start_osu_refresher():
   if osu_refresher.get_watch() != None:
-    return redirect("http://127.0.0.1:80/")
+    return redirect(f"{localhost_url}/")
   else:
     osu_refresher.prepare(user_data["metadata"]["osu id"], url)
     osu_refresher.credits()
-    osu_refresher.request_loop()
-    return redirect("http://127.0.0.1:80/")
+    asyncio.run(osu_refresher.request_loop())
+    return redirect(f"{localhost_url}/")
   
 
     
 if __name__ == "__main__":
   app.run(
     host='0.0.0.0',
-    port=80,
-    debug=True)
+    port=90,
+    debug=False)
