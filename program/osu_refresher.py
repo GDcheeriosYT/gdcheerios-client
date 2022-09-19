@@ -16,7 +16,7 @@ def prepare(user_id, web_url=url):
   global id
   global url
   id = user_id
-  url = "https://gdcheerios.com"
+  url = web_url
   socket.connect(f"{url}", wait_timeout=3)
   print(socket.connection_url)
   socket.emit("test", "ping")
