@@ -122,16 +122,18 @@ def submit_server():
   global url
   ip = request.form.get('ip')
   port = request.form.get('port')
+  if port != "":
+      port = f":{port}"
   resp = make_response(redirect(f"{localhost_url}/"))
   try:
-    request_result = requests.get(f"{ip}:{port}")
-    url = f"{ip}:{port}"
+    request_result = requests.get(f"{ip}{port}")
+    url = f"{ip}{port}"
     resp.set_cookie("url", url)
     return resp
   except:
     return render_template(
       "change-server.html",
-      warning = f"Can't seem to find conection at {ip}:{port}"
+      warning = f"Can't seem to find conection at {ip}{port}"
     )
     
 
@@ -147,6 +149,7 @@ def start_osu_refresher():
   if osu_refresher.get_watch() != None:
     return redirect(f"{localhost_url}/")
   else:
+    print(url)
     osu_refresher.prepare(user_data["metadata"]["osu id"], url)
     osu_refresher.credits()
     asyncio.run(osu_refresher.request_loop())
