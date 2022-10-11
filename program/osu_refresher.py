@@ -54,12 +54,15 @@ def update(data):
   print(socket.socketio_path)
   socket.emit("update client status", data)
 
+def stop():
+  requests.post(f"{url}/api/live/del/{id}")
+
 async def request_loop():
   global watch
   time.sleep(5)
   completed = False #boolean represents if map is completed or not
   while True:
-    time.sleep(0.1)
+    time.sleep(0.35)
     try:
       info = requests.get("http://127.0.0.1:24050/json").json()
       important_info = {}
@@ -68,9 +71,7 @@ async def request_loop():
         important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
         important_info["state"] = info['menu']['state']
         important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-        print("1: 1")
         update(important_info)
-        print("1: 2")
         completed = False
         
       elif info['menu']['state'] == 7:
@@ -80,9 +81,7 @@ async def request_loop():
           important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
           important_info["state"] = info['menu']['state']
           important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-          print("7: 1")
           update(important_info)
-          print("7: 2")
           completed = True
         
       else:
@@ -90,9 +89,7 @@ async def request_loop():
         important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
         important_info["state"] = info['menu']['state']
         important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-        print("2: 1")
         update(important_info)
-        print("2: 2")
         completed = False
       fail_iteration = 0
     except Exception as e:
@@ -103,8 +100,6 @@ async def request_loop():
             1.osu! isn't open
             2.gdcheerios.com is offline''')
       time.sleep(1)
-      for i in range(100): 
-        print("\n")
+      stop()
+      break
 
-def stop():
-  requests.post(f"{url}/api/live/del/{id}")
