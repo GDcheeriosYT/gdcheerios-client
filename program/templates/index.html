@@ -36,9 +36,10 @@
             <li class="not-installed"><a href="/install/Gentry's Quest">Gentry's Quest</a> click to install</li>
             <br>
           {% else %}
-            <li class="not-installed"><a href="/play/Gentry's Quest">Gentry's Quest</a> click to play</li>
+            <li class="not-installed"><a href="/play/Gentry's Quest+{{request.cookies.get('username')}}+{{request.cookies.get('password')}}">Gentry's Quest</a> click to play</li>
               <ul>
                 <li><a href="uninstall/Gentry's Quest">uninstall</a></li>
+                <li><a href="verify/Gentry's Quest">verify</a></li>
               </ul>
             <br>
           {% endif %}

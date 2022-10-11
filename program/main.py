@@ -1,5 +1,6 @@
 #necessary imports
 import json
+import subprocess
 import time
 import os
 import webbrowser
@@ -34,6 +35,15 @@ url = "http://gdcheerios.com"
 user_data = {}
 
 #functions
+def rename(game):
+  for file in os.listdir("installs"):
+    found = bool(re.search(game, file))
+    if found:
+      if file[-4:] == ".jar":
+        os.rename(f"installs/{file}", f"installs/{game}.jar")
+      else:
+        os.rename(f"installs/{file}", f"installs/{game}.exe")
+
 def download(url, game_name):
   filename = url[url.rfind('/') + 1:]
   with requests.get(url) as req:
@@ -47,6 +57,7 @@ def download(url, game_name):
 
   os.remove(f"installs/{game_name}.zip")
 
+  rename(game_name)
 
 def hide_element(element):
   element.grid_remove()
@@ -158,17 +169,57 @@ def start_osu_refresher():
 @app.route("/install/<game>")
 def install(game):
   if game == "Gentry's Quest":
-    req = requests.get("https://api.github.com/repos/gdcheeriosyt/gentrys-quest/releases/latest").json()
+    req = requests.get("https://api.github.com/repos/gdcheeriosyt/Gentrys-Quest-Python/releases/latest").json()
     download(req["assets"][0]["browser_download_url"], "Gentry's Quest")
 
   return redirect(f"{localhost_url}")
 
 @app.route("/uninstall/<game>")
 def uninstall(game):
-  os.remove(f"installs/{game}")
+  try:
+    os.remove(f"installs/{game}.jar")
+  except FileNotFoundError:
+    os.remove(f"installs/{game}.exe")
+
 
   return redirect(f"{localhost_url}")
 
+@app.route("/verify/<game>")
+def verify(game):
+  rename(game)
+
+  return redirect(f"{localhost_url}")
+
+@app.route("/play/<game>+<username>+<password>")
+def play(game, username, password):
+  args = []
+  args.append(username)
+  args.append(password)
+  args.append(url)
+  new_args = ""
+  for arg in args:
+    new_args += f"'{arg}'"
+  args = new_args
+  try:
+    try:
+      print(f"{str(os.path.abspath(f'installs/{game}'))} {args}")
+      print(os.path.isfile(os.path.abspath(f"installs/{game}")))
+      subprocess.run(f'installs/{game}', args=args)
+    except FileNotFoundError:
+      print(f"{str(os.path.abspath(f'program/installs/{game}'))} {args}")
+      print(os.path.isfile(os.path.abspath(f"program/installs/{game}")))
+      subprocess.run(f'program/installs/{game}', args=args)
+  except FileNotFoundError:
+    try:
+      print(f"java -jar {str(os.path.abspath(f'installs/{game}.jar'))} {args}")
+      print(os.path.isfile(os.path.abspath(f"installs/{game}.jar")))
+      subprocess.run(f'installs/{game}.jar', args=args)
+    except FileNotFoundError:
+      print(f'program/installs/{game}.jar {args}')
+      print(os.path.isfile(os.path.abspath(f"program/installs/{game}.jar")))
+      subprocess.run(f'program/installs/{game}.jar', args=args)
+
+  return redirect(f"{localhost_url}")
 
 if __name__ == "__main__":
   app.run(
