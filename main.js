@@ -2,6 +2,7 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
+
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -9,11 +10,13 @@ function createWindow () {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    autoHideMenuBar: true
   })
 
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  
+  mainWindow.loadFile('index.html') 
+  
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -23,6 +26,13 @@ function createWindow () {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  const { session } = require('electron')
+  session.defaultSession.cookies.get({})
+    .then((cookies) => {
+      console.log(cookies)
+    }).catch((error) => {
+      console.log(error)
+    })
   createWindow()
 
   app.on('activate', function () {
