@@ -192,32 +192,7 @@ def verify(game):
 
 @app.route("/play/<game>+<username>+<password>")
 def play(game, username, password):
-  args = []
-  args.append(username)
-  args.append(password)
-  args.append(url)
-  new_args = ""
-  for arg in args:
-    new_args += f"'{arg}'"
-  args = new_args
-  try:
-    try:
-      print(f"{str(os.path.abspath(f'installs/{game}'))} {args}")
-      print(os.path.isfile(os.path.abspath(f"installs/{game}")))
-      subprocess.run(f'installs/{game}', args=args)
-    except FileNotFoundError:
-      print(f"{str(os.path.abspath(f'program/installs/{game}'))} {args}")
-      print(os.path.isfile(os.path.abspath(f"program/installs/{game}")))
-      subprocess.run(f'program/installs/{game}', args=args)
-  except FileNotFoundError:
-    try:
-      print(f"java -jar {str(os.path.abspath(f'installs/{game}.jar'))} {args}")
-      print(os.path.isfile(os.path.abspath(f"installs/{game}.jar")))
-      subprocess.run(f'installs/{game}.jar', args=args)
-    except FileNotFoundError:
-      print(f'program/installs/{game}.jar {args}')
-      print(os.path.isfile(os.path.abspath(f"program/installs/{game}.jar")))
-      subprocess.run(f'program/installs/{game}.jar', args=args)
+  cmdlinestr = f"{game} -u\"{username}\""
 
   return redirect(f"{localhost_url}")
 
