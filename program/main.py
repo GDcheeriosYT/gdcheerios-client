@@ -52,10 +52,10 @@ def download(url, game_name):
         if chunk:
           f.write(chunk)
 
-  with zipfile.ZipFile(f"installs/{game_name}.zip", 'r') as zip_ref:
-    zip_ref.extractall("installs/")
-
-  os.remove(f"installs/{game_name}.zip")
+  #with zipfile.ZipFile(f"installs/{game_name}.zip", 'r') as zip_ref:
+  #  zip_ref.extractall("installs/")
+#
+  #os.remove(f"installs/{game_name}.zip")
 
   rename(game_name)
 
@@ -192,9 +192,15 @@ def verify(game):
 
 @app.route("/play/<game>+<username>+<password>")
 def play(game, username, password):
-  cmdlinestr = f"{game} -u\"{username}\""
+  args = f" -u\"{username}\" -p\"{password}\""
+  os.system(f"start \"poop\" \"installs/{game}\" {args}")
 
   return redirect(f"{localhost_url}")
+
+@app.route("/end", methods=['POST'])
+def end():
+  print("bruh")
+  sys.exit()
 
 if __name__ == "__main__":
   app.run(

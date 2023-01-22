@@ -4,6 +4,13 @@
     <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
+    <script>
+      window.onbeforeunload = function(){
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', "/end");
+          xhr.send()
+      };
+    </script>
     <!--cookie debug: {{request.cookies.get('username')}}-->
     <!--data debug: {{userData|safe}}-->
     <div class="server-info">currently connected to: {{url}}</div>
@@ -36,7 +43,7 @@
             <li class="not-installed"><a href="/install/Gentry's Quest">Gentry's Quest</a> click to install</li>
             <br>
           {% else %}
-            <li class="not-installed"><a href="/play/Gentry's Quest+{{request.cookies.get('username')}}+{{request.cookies.get('password')}}">Gentry's Quest</a> click to play</li>
+            <li class="not-installed"><a href="/play/Gentry's Quest.exe+{{request.cookies.get('username')}}+{{request.cookies.get('password')}}">Gentry's Quest</a> click to play</li>
               <ul>
                 <li><a href="uninstall/Gentry's Quest">uninstall</a></li>
                 <li><a href="verify/Gentry's Quest">verify</a></li>
