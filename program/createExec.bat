@@ -1,1 +1,1 @@
-pyinstaller.py
+pyinstaller.py gdcheerios-client.spec --onefile --add-data "./templates";"./templates" --add-data "./static";"./static"

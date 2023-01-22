@@ -8,6 +8,7 @@ import asyncio
 import requests
 import zipfile
 import re
+import sys
 
 #files
 import osu_refresher
@@ -15,6 +16,7 @@ import osu_refresher
 #flask
 from flask import Flask, jsonify, redirect, render_template, request, make_response
 
+os.chdir(sys._MEIPASS)
 
 #start the tab
 localhost_url = "http://127.0.0.1:90"
@@ -31,7 +33,7 @@ app = Flask(  # Create a flask app
 app.config['SECRET_KEY'] = "hugandafortnite"
 
 #variables
-url = "http://gdcheerios.com"
+url = "https://gdcheerios.com"
 user_data = {}
 
 #functions
@@ -199,8 +201,11 @@ def play(game, username, password):
 
 @app.route("/end", methods=['POST'])
 def end():
-  print("bruh")
-  sys.exit()
+  func = request.environ.get('werkzeug.server.shutdown')
+  if func is None:
+    raise RuntimeError('Not running with the Werkzeug Server')
+  func()
+  return ":/"
 
 if __name__ == "__main__":
   app.run(
