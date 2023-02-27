@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="added states reference">
+    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="updated neatness">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program/osu_refresher.py" beforeDir="false" afterPath="$PROJECT_DIR$/program/osu_refresher.py" afterDir="false" />
     </list>
@@ -91,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677486838346</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="updated neatness">
+      <created>1677489628204</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677489628204</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,6 +119,7 @@
     <MESSAGE value="working on game startup" />
     <MESSAGE value="worked on client" />
     <MESSAGE value="added states reference" />
-    <option name="LAST_COMMIT_MESSAGE" value="added states reference" />
+    <MESSAGE value="updated neatness" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated neatness" />
   </component>
 </project>

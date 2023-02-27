@@ -39,6 +39,7 @@ def prepare(user_id, web_url=url):
       requests.post(f"{url}/api/live/del/{id}")
       watch.kill()
       watch = None
+      stop()
 
   atexit.register(exit_handler)
 
@@ -155,7 +156,8 @@ async def request_loop():
         "hundred" : info['gameplay']['hits']['100'],
         "fifty" : info['gameplay']['hits']['50'],
         "misses" : info['gameplay']['hits']['0'],
-        "health" : info['gameplay']['hp']['normal']
+        "health" : info['gameplay']['hp']['normal'],
+        "leaderboardPosition" : info['gameplay']['leaderboard']['ourplayer']['position']
       }
 
       update(important_info)
@@ -167,6 +169,9 @@ async def request_loop():
             the problem is most likely:
             1.osu! isn't open
             2.gdcheerios.com is offline''')
-      stop()
-      break
+
+      for i in range(50):
+        print("\n")
+
+      time.sleep(1)
 
