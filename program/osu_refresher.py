@@ -60,6 +60,30 @@ def update(data):
 def stop():
   requests.post(f"{url}/api/live/del/{id}")
 
+
+# states
+'''
+NotRunning = -1,
+MainMenu = 0,
+EditingMap = 1,
+Playing = 2,
+GameShutdownAnimation = 3,
+SongSelectEdit = 4,
+SongSelect = 5,
+WIP_NoIdeaWhatThisIs =6, 
+ResultsScreen = 7,
+GameStartupAnimation = 10,
+MultiplayerRooms = 11,
+MultiplayerRoom = 12,
+MultiplayerSongSelect = 13,
+MultiplayerResultsscreen = 14,
+OsuDirect = 15,
+RankingTagCoop = 17,
+RankingTeam = 18,
+ProcessingBeatmaps = 19,
+Tourney = 22,
+'''
+
 async def request_loop():
   global watch
   time.sleep(5)
