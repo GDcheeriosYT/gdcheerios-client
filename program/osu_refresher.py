@@ -63,25 +63,25 @@ def stop():
 
 # states
 '''
-NotRunning = -1,
-MainMenu = 0,
-EditingMap = 1,
-Playing = 2,
-GameShutdownAnimation = 3,
-SongSelectEdit = 4,
-SongSelect = 5,
-WIP_NoIdeaWhatThisIs =6, 
-ResultsScreen = 7,
-GameStartupAnimation = 10,
-MultiplayerRooms = 11,
-MultiplayerRoom = 12,
-MultiplayerSongSelect = 13,
-MultiplayerResultsscreen = 14,
-OsuDirect = 15,
-RankingTagCoop = 17,
-RankingTeam = 18,
-ProcessingBeatmaps = 19,
-Tourney = 22,
+NotRunning = -1
+MainMenu = 0
+EditingMap = 1
+Playing = 2
+GameShutdownAnimation = 3
+SongSelectEdit = 4
+SongSelect = 5
+WIP_NoIdeaWhatThisIs =6
+ResultsScreen = 7
+GameStartupAnimation = 10
+MultiplayerRooms = 11
+MultiplayerRoom = 12
+MultiplayerSongSelect = 13
+MultiplayerResultsscreen = 14
+OsuDirect = 15
+RankingTagCoop = 17
+RankingTeam = 18
+ProcessingBeatmaps = 19
+Tourney = 22
 '''
 
 async def request_loop():
@@ -93,32 +93,73 @@ async def request_loop():
     try:
       info = requests.get("http://127.0.0.1:24050/json").json()
       important_info = {}
-      if info['menu']['state'] != 2 and info['menu']['state'] != 7:
-        important_info["user"] = id
-        important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
-        important_info["state"] = info['menu']['state']
-        important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-        update(important_info)
-        completed = False
-        
-      elif info['menu']['state'] == 7:
-        if completed == False:
-          requests.get(f"{url}/refresh/{id}")
-          important_info["user"] = id
-          important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
-          important_info["state"] = info['menu']['state']
-          important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-          update(important_info)
-          completed = True
-        
+      important_info["user"] = id
+      important_info["mapInfo"] = {
+        "background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg",
+        "metadata" : info['menu']['bm']['metadata'],
+        "stats" : info['menu']['bm']['stats'],
+        "mods" : info['menu']['mods']["str"]
+      }
+
+      state = info['menu']['state']
+      if state == -1:
+        state = "NotRunning"
+      elif state == 0:
+        state = "MainMenu"
+      elif state == 1:
+        state = "Editing Map"
+      elif state == 2:
+        state = "Playing"
+      elif state == 3:
+        state = "GameShutdownAnimation"
+      elif state == 4:
+        state = "SongSelectEdit"
+      elif state == 5:
+        state = "SongSelect"
+      elif state == 6:
+        state = "WIP_NoIdeaWhatThisIs"
+      elif state == 7:
+        state = "ResultsScreen"
+      elif state == 10:
+        state = "GameStartupAnimation"
+      elif state == 11:
+        state = "MultiplayerRooms"
+      elif state == 12:
+        state = "MultiplayerRoom"
+      elif state == 13:
+        state = "MultiplayerSongSelect"
+      elif state == 14:
+        state = "MultiplayerResultsScreen"
+      elif state == 15:
+        state = "OsuDirect"
+      elif state == 17:
+        state = "RankingTagCoop"
+      elif state == 18:
+        state = "RankingTeam"
+      elif state == 19:
+        state = "ProcessingBeatmaps"
+      elif state == 22:
+        state = "Tourney"
       else:
-        important_info["user"] = id
-        important_info["mapInfo"] = {"background" : f"https://assets.ppy.sh/beatmaps/{info['menu']['bm']['set']}/covers/cover.jpg","metadata" : info['menu']['bm']['metadata'],"stats" : info['menu']['bm']['stats'],"mods" : info['menu']['mods']["str"]}
-        important_info["state"] = info['menu']['state']
-        important_info["gameplay"] = {"score" : info['gameplay']['score'], "accuracy" : info['gameplay']['accuracy'], "combo" : info['gameplay']['combo']['current'], "grade":info["gameplay"]["hits"]["grade"]["current"], "maxCombo" : info['gameplay']['combo']['max'], "pp" : info['gameplay']['pp']['current'], "hundred" : info['gameplay']['hits']['100'], "fifty" : info['gameplay']['hits']['50'], "misses" : info['gameplay']['hits']['0']}
-        update(important_info)
-        completed = False
-      fail_iteration = 0
+        state = "Unknown"
+
+      important_info["state"] = state
+
+      important_info["gameplay"] = {
+        "score" : info['gameplay']['score'],
+        "accuracy" : info['gameplay']['accuracy'],
+        "combo" : info['gameplay']['combo']['current'],
+        "grade":info["gameplay"]["hits"]["grade"]["current"],
+        "maxCombo" : info['gameplay']['combo']['max'],
+        "pp" : info['gameplay']['pp']['current'],
+        "hundred" : info['gameplay']['hits']['100'],
+        "fifty" : info['gameplay']['hits']['50'],
+        "misses" : info['gameplay']['hits']['0'],
+        "health" : info['gameplay']['hp']['normal']
+      }
+
+      update(important_info)
+      completed = False
     except Exception as e:
       print(e)
       print('''
