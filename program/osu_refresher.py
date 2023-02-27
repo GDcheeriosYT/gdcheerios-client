@@ -157,7 +157,8 @@ async def request_loop():
         "fifty" : info['gameplay']['hits']['50'],
         "misses" : info['gameplay']['hits']['0'],
         "health" : info['gameplay']['hp']['normal'],
-        "leaderboardPosition" : info['gameplay']['leaderboard']['ourplayer']['position']
+        "leaderboardPosition" : info['gameplay']['leaderboard']['ourplayer']['position'],
+        "leaderboardPositions" : len(info['gameplay']['leaderboard']['slots'])
       }
 
       update(important_info)
