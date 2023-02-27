@@ -8,15 +8,12 @@ import asyncio
 import requests
 import zipfile
 import re
-import sys
 
 #files
 import osu_refresher
 
 #flask
 from flask import Flask, jsonify, redirect, render_template, request, make_response
-
-os.chdir(sys._MEIPASS)
 
 #start the tab
 localhost_url = "http://127.0.0.1:90"

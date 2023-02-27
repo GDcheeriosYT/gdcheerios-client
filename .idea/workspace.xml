@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="working on game startup">
+    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="worked on client">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program/build/ gdcheerios-client/warn- gdcheerios-client.txt" beforeDir="false" afterPath="$PROJECT_DIR$/program/build/ gdcheerios-client/warn- gdcheerios-client.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program/createExec.bat" beforeDir="false" afterPath="$PROJECT_DIR$/program/createExec.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/program/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/program/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/program/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/program/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/program/osu_refresher.py" beforeDir="false" afterPath="$PROJECT_DIR$/program/osu_refresher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +70,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674145878426</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="worked on client">
+      <created>1674376360904</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674376360904</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -91,6 +96,7 @@
     <MESSAGE value="url stuff" />
     <MESSAGE value="fixed url not being set" />
     <MESSAGE value="working on game startup" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on game startup" />
+    <MESSAGE value="worked on client" />
+    <option name="LAST_COMMIT_MESSAGE" value="worked on client" />
   </component>
 </project>

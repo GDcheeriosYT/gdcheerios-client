@@ -10,6 +10,7 @@ id = 0
 watch = None
 url = "127.0.0.1"
 socket = socketio.Client()
+upload_counter = 0
 
 def prepare(user_id, web_url=url):
   global watch
@@ -47,12 +48,14 @@ def get_watch():
 
 def credits():
   print("https://github.com/l3lackShark/gosumemory")
-  print("I use this for data reading, so thanks to him")
+  print("I use this for data reading, so thanks to him\n")
 
 @socket.event
 def update(data):
-  print(socket.socketio_path)
+  global upload_counter
+  print(f"{upload_counter}", end="\r")
   socket.emit("update client status", data)
+  upload_counter += 1
 
 def stop():
   requests.post(f"{url}/api/live/del/{id}")
@@ -62,7 +65,7 @@ async def request_loop():
   time.sleep(5)
   completed = False #boolean represents if map is completed or not
   while True:
-    time.sleep(0.35)
+    time.sleep(0.2)
     try:
       info = requests.get("http://127.0.0.1:24050/json").json()
       important_info = {}
@@ -99,7 +102,6 @@ async def request_loop():
             the problem is most likely:
             1.osu! isn't open
             2.gdcheerios.com is offline''')
-      time.sleep(1)
       stop()
       break
 
