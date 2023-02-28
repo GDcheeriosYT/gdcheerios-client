@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="added 'leaderboardPosition' to gameplay info">
+    <list default="true" id="3da1bf96-3d6b-429f-9cd2-91af36728bcf" name="Changes" comment="added 'leaderboardpositions' value">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/program/osu_refresher.py" beforeDir="false" afterPath="$PROJECT_DIR$/program/osu_refresher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677491810313</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="added 'leaderboardpositions' value">
+      <created>1677493324045</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677493324045</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -127,6 +135,7 @@
     <MESSAGE value="added states reference" />
     <MESSAGE value="updated neatness" />
     <MESSAGE value="added 'leaderboardPosition' to gameplay info" />
-    <option name="LAST_COMMIT_MESSAGE" value="added 'leaderboardPosition' to gameplay info" />
+    <MESSAGE value="added 'leaderboardpositions' value" />
+    <option name="LAST_COMMIT_MESSAGE" value="added 'leaderboardpositions' value" />
   </component>
 </project>
