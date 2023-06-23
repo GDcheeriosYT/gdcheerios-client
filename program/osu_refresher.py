@@ -39,7 +39,6 @@ def prepare(user_id, web_url=url):
       requests.post(f"{url}/api/live/del/{id}")
       watch.kill()
       watch = None
-      stop()
 
   atexit.register(exit_handler)
 
@@ -57,9 +56,6 @@ def update(data):
   print(f"{upload_counter}", end="\r")
   socket.emit("update client status", data)
   upload_counter += 1
-
-def stop():
-  requests.post(f"{url}/api/live/del/{id}")
 
 
 # states
@@ -163,6 +159,7 @@ async def request_loop():
       update(important_info)
       completed = False
     except Exception as e:
+      requests.post(f"{url}/api/live/del/{id}")
       print(e)
       print('''
             something isn't right...
@@ -174,4 +171,3 @@ async def request_loop():
         print("\n")
 
       time.sleep(1)
-
