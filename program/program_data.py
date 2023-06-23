@@ -1,0 +1,2 @@
+user = None
+server = None
